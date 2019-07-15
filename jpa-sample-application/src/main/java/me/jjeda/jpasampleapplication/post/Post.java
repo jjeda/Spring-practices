@@ -1,6 +1,9 @@
-package me.jjeda.jpasampleapplication.portfolio;
+package me.jjeda.jpasampleapplication.post;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Portfolio {
+public class Post {
 
     @Id
     @GeneratedValue
@@ -34,7 +37,7 @@ public class Portfolio {
     }
 
     @Builder
-    public Portfolio(String title, String body, String imgSrc) {
+    public Post(String title, String body, String imgSrc) {
         this.title = title;
         this.body = body;
         this.imgSrc = imgSrc;
