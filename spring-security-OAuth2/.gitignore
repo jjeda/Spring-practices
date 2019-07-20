@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### private-key ###
+application.yml
