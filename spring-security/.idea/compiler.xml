@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="me.jjeda.spring-security.main" target="1.8" />
-      <module name="me.jjeda.spring-security.test" target="1.8" />
-    </bytecodeTargetLevel>
-  </component>
-</project>
