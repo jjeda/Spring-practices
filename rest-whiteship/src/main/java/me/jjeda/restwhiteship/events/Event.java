@@ -16,29 +16,17 @@ public class Event {
     @Id @GeneratedValue
     private Integer id;
 
-    @Column
     private String name;
-    @Column
     private String desciption;
-    @Column
     private LocalDateTime beginEnrollmentDateTime;
-    @Column
     private LocalDateTime closeEnrollmentDateTime;
-    @Column
     private LocalDateTime beginEventDateTime;
-    @Column
     private LocalDateTime endEventDateTime;
-    @Column
     private String location;
-    @Column
     private int basePrice;
-    @Column
     private int maxPrice;
-    @Column
     private int limitOfEnrollment;
-    @Column
     private boolean offline;
-    @Column
     private boolean free;
 
     @Enumerated(EnumType.STRING)
