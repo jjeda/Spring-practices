@@ -62,8 +62,11 @@ public class EventControllerTests {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
-                .andExpect(header().exists(HttpHeaders.LOCATION));
-//                .andExpect(header().string(HttpHeaders.CONTENT_TYPE,MediaType))
+                .andExpect(header().exists(HttpHeaders.LOCATION))
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.query-events").exists())
+                .andExpect(jsonPath("_links.update-event").exists());
+
     }
 
     @Test
