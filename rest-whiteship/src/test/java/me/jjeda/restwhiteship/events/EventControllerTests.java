@@ -36,26 +36,68 @@ public class EventControllerTests {
 
     @Test
     public void createEvent() throws Exception {
-        Event event = Event.builder()
+        EventDto event = EventDto.builder() //Dto 를사용해서 예외값 처리하는경우
                 .name("Spring")
                 .desciption("REST API")
                 .beginEnrollmentDateTime(LocalDateTime.of(2018,11,23,4,21))
                 .closeEnrollmentDateTime(LocalDateTime.of(2018,11,24,4,21))
+                .beginEventDateTime(LocalDateTime.of(2018,11,23,4,21))
+                .endEventDateTime(LocalDateTime.of(2018,11,24,4,21))
                 .basePrice(100)
                 .maxPrice(200)
                 .limitOfEnrollment(100)
                 .location("강남역")
                 .build();
-        event.setId(10);
+
+//        event.setId(10);
 //        Mockito.when(eventRepository.save(event)).thenReturn(event);
 
         mockMvc.perform(post("/api/events/")
                     .contentType(MediaType.APPLICATION_JSON_UTF8)
                     .accept(MediaTypes.HAL_JSON)
                     .content(objectMapper.writeValueAsString(event)))
+                //json 객체를 스트링으로~
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
                 .andExpect(header().exists(HttpHeaders.LOCATION));
+//                .andExpect(header().string(HttpHeaders.CONTENT_TYPE,MediaType))
+    }
+
+    @Test
+    public void createEvent_Bad_Request() throws Exception {
+        Event event = Event.builder()
+                .id(100)
+                .name("Spring")
+                .desciption("REST API")
+                .beginEnrollmentDateTime(LocalDateTime.of(2018,11,23,4,21))
+                .closeEnrollmentDateTime(LocalDateTime.of(2018,11,24,4,21))
+                .beginEventDateTime(LocalDateTime.of(2018,11,23,4,21))
+                .endEventDateTime(LocalDateTime.of(2018,11,24,4,21))
+                .basePrice(100)
+                .maxPrice(200)
+                .limitOfEnrollment(100)
+                .location("강남역")
+                .free(true) //얘
+                .offline(false) //이런애들 무시하는방법
+                .eventStatus(EventStatus.PUBLISHED)
+                .build();
+
+        mockMvc.perform(post("/api/events/")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(event)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void createEvent_Bad_Request_Empty_Input() throws Exception {
+        EventDto eventDto = EventDto.builder().build();
+
+        this.mockMvc.perform(post("/api/events")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(this.objectMapper.writeValueAsString(eventDto)))
+                .andExpect(status().isBadRequest());
     }
 }
