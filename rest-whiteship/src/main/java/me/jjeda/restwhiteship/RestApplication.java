@@ -12,8 +12,5 @@ public class RestApplication {
         SpringApplication.run(RestApplication.class, args);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+
 }

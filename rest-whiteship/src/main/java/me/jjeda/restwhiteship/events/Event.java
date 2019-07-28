@@ -1,6 +1,7 @@
 package me.jjeda.restwhiteship.events;
 
 import lombok.*;
+import me.jjeda.restwhiteship.account.Account;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,4 +32,6 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
+    @ManyToOne
+    private Account manager;
 }
